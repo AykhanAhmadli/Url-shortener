@@ -1,5 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors');
+
 
 const app = express();
 
@@ -7,7 +9,7 @@ app.use(bodyParser.json());
 
 let users = []; // This will act as our "database" for this example
 
-app.get('/users', (req, res) => {
+app.get('/users',cors(), (req, res) => {
     res.json(users);
 });
 
