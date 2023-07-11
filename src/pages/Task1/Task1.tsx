@@ -7,10 +7,6 @@ type Urls = {
 };
 
 const Task1: FC = () => {
-  // axios.get("http://localhost:3000/").then((res: any) => {
-  //   console.log(res);
-  // });
-
   const [inputValue, setInputValue] = useState("");
 
   const [urls, setUrls] = useState<Urls>();

@@ -28,6 +28,13 @@ app.post('/shortUrls', async(req,res)=>{
     
     // res.redirect('/')
 })
+
+app.get('/:shortUrl', async (req, res) => {
+    const shortUrl = await ShortUrl.findOne({ short: req.params.shortUrl })
+
+  
+    res.json(shortUrl.full)
+  })
 // app.post('/', (req, res) => {
 //     const user = req.body;
 //     users.push(user);
