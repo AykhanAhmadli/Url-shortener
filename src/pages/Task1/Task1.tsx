@@ -1,21 +1,40 @@
-import { FC } from "react";
+import { FC, SyntheticEvent, useState } from "react";
 import axios from "axios";
 
 const Task1: FC = () => {
-  axios.get("http://localhost:3000/users").then((res: any) => {
-    console.log(res);
-  });
+  // axios.get("http://localhost:3000/").then((res: any) => {
+  //   console.log(res);
+  // });
+
+  const [inputValue, setInputValue] = useState("");
+
+  const submitUrl = (e: SyntheticEvent) => {
+    e.stopPropagation();
+    axios.post("http://localhost:3000/shortUrls", inputValue);
+  };
   return (
     <div className="w-full h-screen flex justify-center items-center">
       <div className="px-16 py-8 border rounded-lg border-slate-300">
         <div className=" text-3xl font-bold p-2">Link shortener</div>
         {/* long url */}
         <div className="py-2">
-          <div className="font-bold">Enter your URL</div>
-          <input
-            className="border border-slate-300 focus-visible:outline-none p-2"
-            type="text"
-          />
+          <form className=" space-x-2" onSubmit={submitUrl}>
+            <label htmlFor="fullUrl" className="">
+              Enter your Url
+            </label>
+            <input
+              required
+              className="border border-slate-300 focus-visible:outline-none p-2"
+              type="text"
+              onChange={(e) => setInputValue(e.target.value)}
+            />
+            <button
+              type="submit"
+              className="bg-cyan-500 rounded-lg text-white p-2"
+            >
+              Create Link
+            </button>
+          </form>
         </div>
         {/* mini url */}
         <div className=" py-2">
@@ -25,11 +44,7 @@ const Task1: FC = () => {
           </div>
         </div>
         {/* button */}
-        <div className="">
-          <button className="bg-cyan-500 rounded-lg text-white p-2">
-            Create Link
-          </button>
-        </div>
+        <div className=""></div>
       </div>
     </div>
   );
