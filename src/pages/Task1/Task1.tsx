@@ -1,6 +1,11 @@
 import { FC, SyntheticEvent, useState } from "react";
 import axios from "axios";
 
+type Urls = {
+  full: string;
+  short: string;
+};
+
 const Task1: FC = () => {
   // axios.get("http://localhost:3000/").then((res: any) => {
   //   console.log(res);
@@ -8,9 +13,18 @@ const Task1: FC = () => {
 
   const [inputValue, setInputValue] = useState("");
 
-  const submitUrl = (e: SyntheticEvent) => {
-    e.stopPropagation();
-    axios.post("http://localhost:3000/shortUrls", inputValue);
+  const [urls, setUrls] = useState<Urls>();
+
+  const submitUrl = async (e: SyntheticEvent) => {
+    e.preventDefault();
+    if (!inputValue) {
+      console.log("here");
+      return;
+    }
+    const response = await axios.post("http://localhost:3000/shortUrls", {
+      fullUrl: inputValue,
+    });
+    setUrls(response.data);
   };
   return (
     <div className="w-full h-screen flex justify-center items-center">
@@ -40,7 +54,10 @@ const Task1: FC = () => {
         <div className=" py-2">
           <div className="font-bold">Your short url</div>
           <div className="">
-            <div>shortenedlink.com/</div>
+            {/* <div>{urls?.full}</div> */}
+            <a href={`http://127.0.0.1:5173/${urls?.short}`}>
+              http://127.0.0.1:5173/{urls?.short}
+            </a>
           </div>
         </div>
         {/* button */}

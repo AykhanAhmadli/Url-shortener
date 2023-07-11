@@ -7,6 +7,7 @@ const ShortUrl = require('./models/shortUrl')
 const app = express();
 
 app.use(bodyParser.json());
+app.use(cors({origin:"*"}))
 
 let users = []; // This will act as our "database" for this example
 
@@ -15,13 +16,16 @@ mongoose.connect('mongodb+srv://aykhan:419419419@cluster0.n8v2xb8.mongodb.net/',
     useUnifiedTopology:true
 })
 
-app.get('/',cors(), async (req, res) => {
+app.get('/', async (req, res) => {
     const shortUrls = await ShortUrl.find()
     res.json({shortUrls:shortUrls});
 });
 
-app.post('/shortUrls', cors(), async(req,res)=>{
-    await ShortUrl.create({full:req.body.fullUrl})
+app.post('/shortUrls', async(req,res)=>{
+    const response = await ShortUrl.create({full:req.body.fullUrl})
+    res.json(response)
+    
+    
     // res.redirect('/')
 })
 // app.post('/', (req, res) => {
