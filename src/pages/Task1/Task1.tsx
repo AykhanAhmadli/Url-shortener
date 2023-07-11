@@ -28,8 +28,8 @@ const Task1: FC = () => {
   };
   return (
     <div className="w-full h-screen flex justify-center items-center">
-      <div className="px-16 py-8 border rounded-lg border-slate-300">
-        <div className=" text-3xl font-bold p-2">Link shortener</div>
+      <div className="px-16 py-8 border rounded-lg border-slate-300 shadow-lg">
+        <div className=" text-3xl font-bold py-2">Link shortener</div>
         {/* long url */}
         <div className="py-2">
           <form className=" space-x-2" onSubmit={submitUrl}>
