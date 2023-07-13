@@ -1,5 +1,4 @@
 import axios from "axios";
-import React from "react";
 
 type Props = {};
 
@@ -10,7 +9,6 @@ const Redirect = (props: Props) => {
     console.log(res);
     window.location.replace(res.data);
   });
-  //   window.location.replace("https://bobbyhadz.com");
   return <div>Redirect</div>;
 };
 

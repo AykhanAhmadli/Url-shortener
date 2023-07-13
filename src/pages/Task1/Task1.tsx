@@ -8,15 +8,18 @@ type Urls = {
 
 const Task1: FC = () => {
   const [inputValue, setInputValue] = useState("");
+  const [errors, setErrors] = useState(false);
 
   const [urls, setUrls] = useState<Urls>();
 
   const submitUrl = async (e: SyntheticEvent) => {
     e.preventDefault();
     if (!inputValue) {
-      console.log("here");
+      setErrors(true);
+      alert("Link cannot be empty");
       return;
     }
+    setErrors(false);
     const response = await axios.post("http://localhost:3000/shortUrls", {
       fullUrl: inputValue,
     });
@@ -28,13 +31,14 @@ const Task1: FC = () => {
         <div className=" text-3xl font-bold py-2">Link shortener</div>
         {/* long url */}
         <div className="py-2">
-          <form className=" space-x-2" onSubmit={submitUrl}>
+          <form className={`space-x-2`} onSubmit={submitUrl}>
             <label htmlFor="fullUrl" className="">
               Enter your Url
             </label>
             <input
-              required
-              className="border border-slate-300 focus-visible:outline-none p-2"
+              className={`border border-slate-300 focus-visible:outline-none p-2 ${
+                errors ? "border-red-300" : ""
+              }`}
               type="text"
               onChange={(e) => setInputValue(e.target.value)}
             />
